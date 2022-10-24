@@ -5,7 +5,7 @@ import {addSelf, addUser} from '../redux/slice';
 import {useNavigate} from 'react-router-dom'
 import {io} from 'socket.io-client'
 
-export const socket = io('http://localhost:5000',{autoConnect: false});
+export const socket = io('https://socket-chat-app-using-react.herokuapp.com/',{autoConnect: false});
 
 function Login() {
     const [myUsername, setMyUsername] = useState('');
