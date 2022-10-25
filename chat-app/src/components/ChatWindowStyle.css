@@ -123,10 +123,8 @@
 .message-panel .messages .message{
     color: #333;
     font-size: 1.2rem;
-    width: 70%;
-    height: fit-content;
-    padding: 5px;
-    
+    max-width: 70%;
+    height: fit-content;    
     margin-bottom: 10px;
 
     
@@ -136,14 +134,16 @@
     align-self: flex-end;
     border-radius: 5px 5px 0 5px;
     background-color: #d1e979;
+    padding: 5px 15px 5px 10px;
 }
 
 .to{
     align-self: flex-start;
     border-radius: 5px 5px 5px 0;
     background-color: #eee;
-    
+    padding: 5px 10px 5px 15px;
 }
+    
 
 .message-panel .messages::-webkit-scrollbar{
     width: 5px;
