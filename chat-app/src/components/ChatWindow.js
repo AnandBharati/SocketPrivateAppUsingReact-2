@@ -41,6 +41,16 @@ function ChatWindow() {
     }
   }
 
+  function setUserActive(user){
+     setSelectedUser({ username: user.username, id: user.id });
+      let userRibbon = document.getElementById('user-'+user.id)
+      let otherUser = document.querySelectorAll('.otherUser-container .user')
+      console.log(otherUser)
+      Array.from(otherUser).map(a=> a.classList?.remove('active-user'));
+      userRibbon.classList.add('active-user');
+
+  }
+
   //style the chat window
   //get all the users
   //get all the messages
@@ -62,7 +72,7 @@ function ChatWindow() {
         </div>
         <div className="otherUser-container">
           {allUsers.filter((user) => user.id !== selector.self.id).map((user) =>
-          (<div className="user" key={user.id} onClick={() => { setSelectedUser({ username: user.username, id: user.id }); }}>
+          (<div className="user" id={'user-'+user.id} key={user.id} onClick={() =>setUserActive(user) }>
             <img src='https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-PNG-Free-Image.png' alt='avatar' />
             <h3> {user.username} </h3>
           </div>)
@@ -72,16 +82,23 @@ function ChatWindow() {
 
       <div className="message-panel">
         <div className="selfaccount-container">
-
+          <img src='https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-PNG-Free-Image.png' alt="" />
+          <h3> {selectedUser.username}</h3>
         </div>
         <div className="messages">
-          {filterMsg?.map(({ content, fromUser, fromUserId, toUser, toUserId }, i) =>
-            <p key={i}>{content}</p>
-          )}
+          {filterMsg?.map(({ content, fromUser, fromUserId, toUser, toUserId }, i) =>{
+            let direction = fromUserId === selector.self.id ? 'from' : 'to'
+            
+           return <p key={i} className={'message ' +direction}>
+              {content}
+            </p>
+
+})}
         </div>
         <div className="message-control">
+        <button onClick={(e) => sendMsg(e)}>Send</button>
           <input type="text" name="" id="" placeholder='Enter Message' value={newMsg} onChange={(e) => setNewMsg(e.target.value)} />
-          <button onClick={(e) => sendMsg(e)}>Send</button>
+          
         </div>
       </div>
     </div>
