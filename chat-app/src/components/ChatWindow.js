@@ -11,7 +11,10 @@ function ChatWindow() {
   const [AllMsg, setAllMsg] = useState(selector.messages);
   const [filterMsg, setFilterMsg] =useState()
   const [selectedUser, setSelectedUser] = useState({});
-  const dispatch = useDispatch()
+  const [isUserHidden, setIsUserHidden] = useState(true);
+  const dispatch = useDispatch();
+  
+  const [floatBtn, setfloatBtn] = useState(<i className="fa-solid fa-users fa-xl"></i>)
 
   useEffect(() => {
     setAllUsers(selector.allUsers);
@@ -51,6 +54,20 @@ function ChatWindow() {
 
   }
 
+  function showHideUsers(){
+    const userPanel = document.querySelector('.user-panel');
+    if(isUserHidden){
+      userPanel.style.display='flex';
+      setfloatBtn(<i className="fa-solid fa-xmark fa-xl"></i>)
+    }
+    else{
+      userPanel.style.display='none';
+      //floatBtn.innerHTML = '<i className="fa-solid fa-users fa-xl"></i>'
+      setfloatBtn(<i className="fa-solid fa-users fa-xl"></i>)
+    }
+    setIsUserHidden(!isUserHidden);
+  }
+
   //style the chat window
   //get all the users
   //get all the messages
@@ -81,6 +98,7 @@ function ChatWindow() {
       </div>
 
       <div className="message-panel">
+        <span className='floatBtn' onClick={()=>showHideUsers()}> {floatBtn} </span>
         <div className="selfaccount-container">
           <img src='https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-PNG-Free-Image.png' alt="" />
           <h3> {selectedUser.username}</h3>
